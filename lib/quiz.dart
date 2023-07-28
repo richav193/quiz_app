@@ -22,6 +22,7 @@ class _QuizState extends State<Quiz> {
   //   super.initState();
   // }
 
+  final List<String> selectedAnswers = [];
   var activeScreen = 'start-screen';
 
   void switchScreen() {
@@ -31,6 +32,9 @@ class _QuizState extends State<Quiz> {
     });
   }
 
+  void chooseAnswer(String answer) {
+    selectedAnswers.add(answer);
+  }
 
 // initState method..................................
 //   @override
@@ -58,7 +62,6 @@ class _QuizState extends State<Quiz> {
 //     );
 //   }
 // }
-
 
 //ternary condition..........................................
 //   @override
@@ -89,14 +92,15 @@ class _QuizState extends State<Quiz> {
 //   }
 // }
 
-
 //if statement.............................................
   @override
   Widget build(context) {
     Widget screenWidget = StartScreen(switchScreen);
 
     if (activeScreen == 'questions-screen') {
-      screenWidget = const QuestionsScreen();
+      screenWidget = QuestionsScreen(
+        onSelectAnswer: chooseAnswer,
+      );
     }
 
     return MaterialApp(
