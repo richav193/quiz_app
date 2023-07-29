@@ -20,7 +20,14 @@ class QuestionsScreen extends StatefulWidget {
 class _QuestionsScreenState extends State<QuestionsScreen> {
   var currentQuestionIndex = 0;
 
-  void answerQuestion() {
+  // void answerQuestion() {
+  //   setState(() {
+  //     currentQuestionIndex++;
+  //   });
+  // }
+
+  void answerQuestion(String selectedAnswers) {
+    widget.onSelectAnswer(selectedAnswers);
     setState(() {
       currentQuestionIndex++;
     });
@@ -33,7 +40,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     return SizedBox(
       width: double.infinity,
       child: Container(
-        margin: const EdgeInsets.all(20),
+        margin: const EdgeInsets.all(40),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -55,7 +62,10 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
             ...currentQuestion.getShuffledAnswers().map((answer) {
               return AnswerButton(
                 answerText: answer,
-                onTap: answerQuestion,
+                // onTap: answerQuestion,
+                onTap: (){
+                  answerQuestion(answer);
+                },
               );
             })
             // AnswerButton(
