@@ -37,12 +37,18 @@ class _QuizState extends State<Quiz> {
 
   void chooseAnswer(String answer) {
     selectedAnswers.add(answer);
-    if(selectedAnswers.length==questions.length){
+    if (selectedAnswers.length == questions.length) {
       setState(() {
-        // selectedAnswers=[];
-        activeScreen='results-screen';
+        activeScreen = 'results-screen';
       });
     }
+  }
+
+  void restartQuiz() {
+    setState(() {
+      selectedAnswers = [];
+      activeScreen = 'question-screen';
+    });
   }
 
 // initState method..................................
@@ -112,10 +118,12 @@ class _QuizState extends State<Quiz> {
       );
     }
 
-        if (activeScreen == 'results-screen') {
-      screenWidget = ResultsScreen(chosenAnswers: selectedAnswers,);
+    if (activeScreen == 'results-screen') {
+      screenWidget = ResultsScreen(
+        chosenAnswers: selectedAnswers,
+        onRestart: restartQuiz,
+      );
     }
-
 
     return MaterialApp(
       home: Scaffold(
